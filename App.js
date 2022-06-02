@@ -27,7 +27,7 @@ export default function App() {
       });
     } else {
       Alert.alert('OOPS', 'Todos must be over 3 chars long', [
-        {text: 'Understood', onPress: () => console.log('alert closed')}
+        { text: 'Understood', onPress: () => console.log('alert closed') }
       ])
     }
 
@@ -49,7 +49,7 @@ export default function App() {
         </View>
       </View>
     </View>
-    
+
   );
 }
 
@@ -60,8 +60,10 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 40,
+    flex: 1,
   },
   list: {
     marginTop: 20,
+    flex: 1,
   }
 });
