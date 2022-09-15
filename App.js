@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, Alert } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import Header from "./components/header";
 import TodoItem from './components/todoItem';
 import AddTodo from './components/addTodo';
+import 'localstorage-polyfill';
 
 export default function App() {
 
   const [todos, setTodos] = useState([
-    { text: 'buy coffee', key: '1' },
-    { text: 'create an app', key: '2' },
-    { text: 'play on the switch', key: '3' }
+    { text: 'Add a task', key: '1' }
   ]);
+
   const handlePress = (key) => {
     setTodos((prevTodos) => {
       return prevTodos.filter(todo => todo.key != key)
     });
   }
-  const handleSubmit = (text) => {
 
+  const handleSubmit = (text) => {
     if (text.length > 3) {
       setTodos((prevTodos) => {
         return [
@@ -30,11 +30,16 @@ export default function App() {
         { text: 'Understood', onPress: () => console.log('alert closed') }
       ])
     }
-
   }
 
-  return (
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    if (todos) {
+     setTodos(todos);
+    }
+  }, []);
 
+  return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
@@ -49,7 +54,6 @@ export default function App() {
         </View>
       </View>
     </View>
-
   );
 }
 
